@@ -16,11 +16,11 @@ jobs:
       - name: Install Android SDK
         uses: malinskiy/action-android/install-sdk@0.0.7
       - name: Build project
-        run: ./gradlew assembleDebug
+        run: cd software && ./gradlew assembleDebug
         env:
           VERSION: ${{ github.ref }}
       - name: Run tests
-        run: ./gradlew test
+        run: cd software && ./gradlew test
       - name: Run instrumentation tests
         uses: malinskiy/action-android/emulator-run-cmd@release/0.0.7
         with:
@@ -61,10 +61,10 @@ jobs:
       - name: Install Android SDK
         uses: malinskiy/action-android/install-sdk@0.0.7
       - name: Code checks
-        run: ./gradlew check
+        run: cd software && ./gradlew check
       - name: Archive Lint report
         uses: actions/upload-artifact@v2.0.1
         if: ${{ always() }}
         with:
           name: IOIO-Lint-report
-          path: applications/**/build/reports/lint-results.html
+          path: software/app/build/reports/lint-results.html
